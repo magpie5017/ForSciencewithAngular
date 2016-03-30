@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="game">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=9" /> <!-- allow removing outlines in IE9 -->
+<title>For Science!</title>
+
+<link rel="icon" 
+      type="image/png" 
+      href="images/favicon.png" />
+      
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link href="css/styles.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script> 
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script type="text/javascript" src="scripts/bootstrap.min.js"></script>
+
+
+</head>
+
+<body ng-controller="GameController as gameCtrl">
+<div id="wrapper">
+
+	<div id="row1">
+    	<div class="col-md-6">
+        	<div id="logo">
+            	<a href="#" data-toggle="modal" data-target="#gameintro" id="logoimg" ng-click="gameCtrl.logoPristine = false"><img src="images/logo.png" border="0" /><img src="images/arrowleft.gif" ng-show="gameCtrl.logoPristine" /></a>
+            </div><!-- end logo -->
+        </div>
+        
+        <!-- Modal -->
+        <div id="gameintro" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">For Science!</h4>
+              </div>
+              <div class="modal-body">
+                <p>How far are you willing to go for science?</p>
+                <p>Welcome to the department. You'll be managing a team of scientists, each a specialist in their own field. This is a highly classified testing environment, so your interaction with the outside world is going to be limited.</p>
+                <p>What, you'd like to meet the team? Do that on your own time - this isn't social hour!</p>
+                <p>Click that <strong>Conduct Research</strong> button and get to work!</p>
+              </div>
+              <div class="modal-footer">
+                <div id="modalclosebtn"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+        	<div id="corpnav">
+            	<ul>
+                	<li><span id="autosavenote">autosaving...</span></li>
+                	<li><a ng-click="save()" id="savegame">Save</a></li>
+                    <li><a ng-click="gameCtrl.resetGame()" id="resetgame">Reset</a></li>
+                    <li><a href="https://github.com/magpie5017/ForSciencewithAngular" target="_blank">Github</a></li>
+                    <li>Version 0.1</li>
+                </ul>
+            </div>
+        	<button id="click" ng-click="gameCtrl.clickResearch(1)"><i class="fa fa-flask"></i> Conduct Research</button>
+        </div>
+    <div class="clearboth"></div>
+    </div><!-- end row1 -->
+    <div class="clearboth"></div>
+    <div id="row2">      
+    	<div class="col-md-7" id="mainui" ng-controller="TabController as tabCtrl">
+        	<div id="tablabels">
+                <ul id="tabs">
+                    <li id="mainlabel"><a ng-click="tabCtrl.selectTab(1)" ng-class="{active:tabCtrl.isSelected(1)}">Main</a></li>
+                    <li id="anilabel"><a ng-click="tabCtrl.selectTab(2)" ng-class="{active:tabCtrl.isSelected(2)}">Ani</a></li>
+                    <li id="kokolabel"><a ng-click="tabCtrl.selectTab(3)" ng-class="{active:tabCtrl.isSelected(3)}">Koko</a></li>
+                    <li id="meinalabel"><a ng-click="tabCtrl.selectTab(4)" ng-class="{active:tabCtrl.isSelected(4)}">Meina</a></li>
+                    <li id="sirinlabel"><a ng-click="tabCtrl.selectTab(5)" ng-class="{active:tabCtrl.isSelected(5)}">Sirin</a></li>
+                    <li id="touriklabel" class="last"><a ng-click="tabCtrl.selectTab(6)" ng-class="{active:tabCtrl.isSelected(6)}">Tourik</a></li>
+                 </ul>
+        	</div>
+            <div class="infowindow">
+            	<div id="maintab" class="tabcontent panel" ng-show="tabCtrl.isSelected(1)">
+                	<div id="total_research">Research: <span id="totalresearch">{{gameCtrl.resources.research}}</span> / {{gameCtrl.resources.cabinets.limit * gameCtrl.resources.cabinets.amount}}</div>
+                    
+                    <div id="resourcewrapper">
+                    	<div id="resourcelooping">
+                        	<table width="100%">
+                            	<tr class="resourcerows" ng-repeat-start="(key,value) in gameCtrl.resources" ng-if="$index > 0">
+                                	<td width="80%"><a class="resourcename" ng-mouseenter="gameCtrl.hoverDesc(value.name,'visible')" ng-mouseleave="gameCtrl.hoverDesc(value.name,'hidden')">{{value.name|capitalize}}: {{value.amount}}</a></td>
+                                    <td width="20%"><button ng-repeat="count in gameCtrl.buyCounts" ng-click="gameCtrl.buyResources(count,value.name)" ng-mouseenter="gameCtrl.hoverCost(value.name,'visible',count)" ng-mouseleave="gameCtrl.hoverCost(value.name,'hidden')">{{count}}</button></td>
+                                </tr>
+                                <tr ng-repeat-end ng-if="$index > 0">
+                                	<td colspan="2">&nbsp;&nbsp;&nbsp;<span ng-show="gameCtrl.{{value.name}}maindesc"><i class="fa fa-caret-right"></i> {{value.description|capitalize}}</span>
+                                    <span ng-show="gameCtrl.{{value.name}}cost"><i class="fa fa-caret-right"></i> Cost: {{value.cost * gameCtrl.countCheck}} {{value.costName}}</span></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div><!-- end maintab --> 
+                
+                <div id="anitab" class="tabcontent panel" ng-show="tabCtrl.isSelected(2)">
+                	<img src="images/anipic.jpg" class="picright" />
+                	<h2>Ani: Analytic Epidemiology</h2>
+                    <p>Studys the causes of diseases in certain populations. Occasionally involves experimental work on lab rats and other small mammals.</p>
+                    <p>Quiet and well-thought-of by the rest of the group, Ani is sometimes too soft-hearted for the work she does.</p>
+                    <p>{{tabCtrl.indivStudy}}</p>
+                </div><!-- end anitab -->
+                
+                <div id="kokotab" class="tabcontent panel" ng-show="tabCtrl.isSelected(3)">
+                	<img src="images/kokopic.jpg" class="picright" />
+                	<h2>Koko: Cognitive Robotics</h2>
+                    <p>Developing AI and specific-task machinery. Specializes in small robotics.</p>
+                    <p>A chronic prankster, Koko is a brilliant researcher, but her breakthroughs are often offset by procrastination.</p>
+                    <p>{{tabCtrl.indivStudy}}</p>
+                </div><!-- end kokotab -->
+                
+                <div id="meinatab" class="tabcontent panel" ng-show="tabCtrl.isSelected(4)">
+                	<img src="images/meinapic.jpg" class="picright" />
+                	<h2>Meina: Advanced Weapons Development</h2>
+                    <p>Focuses primarily on projectiles and explosives, with occasional grants to also develop defensive measures.</p>
+                    <p>Stubborn and a little spoiled, Meina spends more time than most attempting to socialize with the rest of the group.</p>
+                    <p>{{tabCtrl.indivStudy}}</p>
+                </div><!-- end meinatab -->
+                
+                <div id="sirintab" class="tabcontent panel" ng-show="tabCtrl.isSelected(5)">
+                	<img src="images/sirinpic.jpg" class="picright" />
+                	<h2>Sirin: Experimental Genetics</h2>
+                    <p>Maintains a small zoo of ongoing experiments in various types of gene therapy, many of them for weaponized purposes.</p>
+                    <p>Unintentionally 'creepy', Sirin has an almost fanatical interest in his own work that tends to put off the others.</p>
+                    <p>{{tabCtrl.indivStudy}}</p>
+                </div><!-- end sirintab -->
+                
+                <div id="touriktab" class="tabcontent panel" ng-show="tabCtrl.isSelected(6)">
+                	<img src="images/tourikpic.jpg" class="picright" />
+                	<h2>Tourik: Observational Astronomy</h2>
+                    <p>Employs the world's most powerful telescope to record observational data about distant spacial bodies.</p>
+                    <p>Old enough to be the grandfather of the group's younger members, Tourik keeps to himself and subsequently not much is known about his actual work.</p>
+                    <p>{{tabCtrl.indivStudy}}</p>
+                </div><!-- end touriktab -->
+            </div><!-- end infowindow -->
+
+        </div><!-- end mainui and row2col1 -->
+        
+        <div class="col-md-5">
+        	<div id="newslogwrapper">
+            	<div id="newslog">
+                	<pre>{{gameCtrl.newslog}}</pre>
+                </div>
+        	</div><!-- end newslogwrapper -->
+        </div><!-- end row2col2 -->
+        
+    </div><!-- end row2 -->
+    
+	<div id="row3" ng-controller="LwrTabController as lwrtabCtrl">
+    	<div id="lowertablabels">
+        	<ul>
+            	<li class="upgrades"><a ng-click="lwrtabCtrl.selectTab(1)" ng-class="{active:lwrtabCtrl.isSelected(1)}">Upgrades</a></li>
+                <li><a ng-click="lwrtabCtrl.selectTab(2)" ng-class="{active:lwrtabCtrl.isSelected(2)}">Collaborations</a></li>
+                <li><a ng-click="lwrtabCtrl.selectTab(3)" ng-class="{active:lwrtabCtrl.isSelected(3)}">RAs</a></li>
+                <li class="last"><a ng-click="lwrtabCtrl.selectTab(4)" ng-class="{active:lwrtabCtrl.isSelected(4)}">Achievements</a></li>
+            </ul>
+        </div><!-- end lowertablabels -->
+        
+        <div id="lowerui">
+        	<div id="upgradetab" class="tabcontent panel" ng-show="lwrtabCtrl.isSelected(1)">
+				<h2>Upgrades</h2>
+				<button ng-show="gameCtrl.programminglvl2" ng-click="gameCtrl.upgradeResource('programs',2)">Attend programming conference</button>
+			</div><!-- end upgradetab -->
+            
+            <div id="collabtab" class="tabcontent panel" ng-show="lwrtabCtrl.isSelected(2)">
+				<h2>Collaborations</h2>
+			</div><!-- end collabtab -->
+            
+            <div id="ratab" class="tabcontent panel" ng-show="lwrtabCtrl.isSelected(3)">
+				<h2>Research Assistants</h2>
+			</div><!-- end ratab -->
+            
+            <div id="achievetab" class="tabcontent panel" ng-show="lwrtabCtrl.isSelected(4)">
+				<h2>Achievements</h2>
+			</div><!-- end achievetab -->
+        </div><!-- end lowerui -->
+    </div><!-- end row3 -->
+    
+</div><!-- end wrapper -->
+<script type="text/javascript" src="scripts/game.js"></script>
+<script type="text/javascript" src="scripts/ngStorage.min.js"></script>
+<script type="text/javascript" src="scripts/modal.js"></script>
+</body>
+</html>

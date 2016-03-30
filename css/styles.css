@@ -3,25 +3,46 @@
 
 /* Page Layout */
 
-body {
+body, html {
 	font-size: 12px;	
+	background-image: url(../images/lt-wood-bg.jpg);
+	background-size: cover;
+	background-position: center top;
+	height: 100%;
+}
+
+.row {
+	margin: 0;	
 }
 
 #wrapper {
-	width: 900px;
-	margin: 0 auto;
+	height: auto;
+	min-height: 100%;
+	width: 100%;
+	background-image: url(../images/bottom-border.jpg);
+	background-position: bottom center;
+	background-repeat: repeat-x;	
 }
 
 #row1 {
-	border-bottom: #CCC thin solid;
+	background-image: url(../images/top-border.jpg);
+	background-repeat: repeat-x;
+	padding-top: 40px;
 }
 
 #row2 {
-	height: 450px;	
+	min-height: 400px;	
+	margin-left: 10px;
 }
 
-#row3 {
-	height: 200px;	
+.picright {
+	float: right;
+	margin: 8px;	
+}
+
+.picleft {
+	float: left;
+	margin: 8px;	
 }
 
 
@@ -56,6 +77,17 @@ body {
 	clear: both;	
 }
 
+pre {
+	padding: 0;
+	margin: 0;
+	background-color: transparent;
+	border: none;
+	white-space: pre-wrap;
+  	word-break: normal;	
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 12px;
+}
+
 button {
 	background-color: #ccc;	
 	-moz-border-radius: 5px;
@@ -70,61 +102,92 @@ button:hover {
 }
 
 .buybuttons {
-	float:right;
-	margin-top: -1px;	
+	float:right;	
 }
 
 
 /* Container Divs */
 
 #logo {
-	margin: 20px 0 10px 40px;	
+	margin: 0 0 10px 40px;	
 }
 
 #logo a, #logo a:focus {
 	outline: 0;
 }
 
+#pointerarrow {
+	width: 50px;
+	height: auto;	
+}
+
 .modal-body strong {
 	color: #000;	
 }
 
+.researchbtn {
+	margin-top: 80px;	
+}
+
 #click {
-	height: 50px;
-	width: 250px;
-	float: right;
+	height: 60px;
+	width: 300px;
 	margin: 15px 300px 0 0;
-	font-size: 18px;
-	border: 2px outset buttonface;
+	font-size: 20px;
+	border: 4px outset buttonface;
 }
 
 button#click:active {
-	background-color: #666;	
+	background-color: #515252
 }
 
-#mainui {
-	border-right: #ccc solid thin;	
+#mainui {	
 	padding-left: 0;
+	padding-right: 0;
+	box-shadow: 3px 1px 3px #888888;
+}
+
+#mainui h2, #rightui h2 {
+	font-size: 18px;
+	margin-top: 0;	
+}
+
+tr.resourcerows {
+	background-color: #e5e5e5;
 }
 
 .infowindow {
 	padding: 20px 10px;
 	overflow-y: auto;
 	overflow-x: hidden;
-	height: 400px;
+	height: 340px;
+	background-color: #fff;
+}
+
+#rtinfowindow {
+	padding: 20px 10px;	
 }
 
 #newslogwrapper {
 	width: 100%;
-	height: 400px;
+	height: 380px;
 	overflow-y: auto;
 	float: left;
-	margin: 50px 0 15px 10px;
+	box-shadow: 3px 1px 3px #888888;
 }
 
 #newslog {
 	height: 100%;
 	width: 100%;
+	padding: 50px 0 0 20px;
+	background-color: #fff;
+}
+
+#rightui {
+	background-color:#fff;
+	margin-right: 10px;
+    height: 379px;
+	box-shadow: 3px 1px 3px #888888;	
 }
 
 
@@ -132,9 +195,7 @@ button#click:active {
 
 #corpnav {
 	float: right;
-	background: linear-gradient(to left, #ccc , #fff);
-	border-radius: 10px;
-	width: 410px;
+	margin-top: 60px;
 }
 
 #corpnav ul {
@@ -145,7 +206,7 @@ button#click:active {
 
 #corpnav li {
 	float: left;
-	margin: 10px 5px 5px 5px;	
+	margin: 10px 10px 5px 10px;	
 }
 
 #autosavenote {
@@ -193,31 +254,39 @@ button#click:active {
 }
 
 
-/* Lower Tab Navigation */
+/* Right Tab Navigation */
 
-#lowertablabels {
+#righttablabels {
 	background-color: #CCC;
 	height: 40px;	
 }
 
-#lowertablabels ul {
+#righttablabels ul {
 	list-style: none;
-	padding-left: 2px;	
+	padding-left: 2px;
+	padding-top: 10px;	
 }
 
-#lowertablabels ul li {
-	float: left;
-	padding: 5px 23px 10px 23px;
-	border-right: #e5e5e5 thin solid;	
-	margin: 3px 0 0 0;
+#righttablabels ul li {
+	display: inline;
+	border-right: #e5e5e5 thin solid;
 }
 
-#lowertablabels ul li.last {
+#righttablabels ul li a {
+	color: #000;
+	text-decoration: underline;	
+	padding: 5px 15px 15px 15px;
+	cursor: pointer;
+}
+
+#righttablabels ul li a.active {
+	background-color: #fff;
+	border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+#righttablabels ul li.last {
 	border-right: none;	
-}
-
-#lowertablabels ul li.upgrades {
-	background-color: #fff;	
 }
 
 
