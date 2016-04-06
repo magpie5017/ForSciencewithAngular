@@ -8,6 +8,7 @@ From Wikipedia:
 For Science! is built entirely with Javascript, Angular.js, HTML, and CSS. This is the third iteration of the game, built as an exercise in Angular.js.
 
 ###Version
-0.2
+0.3
 ####Version Features
-* Full UI overhaul
+* Implemented LocalStorage saving
+* Ability to reset progress
