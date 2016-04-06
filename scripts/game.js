@@ -16,7 +16,6 @@
 			var array = [];
 			for(var objectKey in input) {
 				array.push(input[objectKey]);
-				
 			};
 	
 			array.sort(function(a, b){
@@ -25,20 +24,18 @@
 				return a - b;
 			});
 			return array;
-			
 		};
-		
 	});
 	
 	
 	app.controller('GameController', function($interval,$scope,$localStorage){
 		var self = this;
-		self.logoPristine = true;
+		self.logoPristine = true; //next update - move to saved resources
 		self.countCheck = 0;
 		self.programminglvl2 = true;
 		self.newslog = "You are managing your scientists well.";
 		
-		self.resources = $localStorage.$default({
+		self.resources = $localStorage.$default({ //next update - more efficient object storage, prototyping
 			research: 0,
 			programs: {
 				name: "programs",
@@ -76,16 +73,6 @@
 			}
 			
 		});
-		
-		
-		
-		self.testSavedEntry = function(){
-			if(!$localStorage.hasOwnProperty("cabinets")){
-				window.alert("cabinets missing");
-			} else {
-				window.alert("nothing wrong");
-			};
-		};
 		
 		self.upgradeResource = function(resource,level){
 			switch(resource){
@@ -209,7 +196,7 @@
 	
 		
 		self.resetGame = function() {
-			$localStorage.$reset({
+			$localStorage.$reset({ //next update - new way of storing defaults
 				research: 0,
 				programs: {
 					name: "programs",
