@@ -17,6 +17,9 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
 
+<script type="text/javascript" src="scripts/ngStorage.min.js"></script>
+<script type="text/javascript" src="scripts/game.js"></script>
+
 
 </head>
 
@@ -61,10 +64,10 @@
             <div id="corpnav">
                   <ul>
                       <li><span id="autosavenote">autosaving...</span></li>
-                      <li><a ng-click="save()" id="savegame">Save</a></li>
+                      <li><a ng-click="gameCtrl.testSavedEntry()" id="savegame">Save</a></li>
                       <li><a ng-click="gameCtrl.resetGame()" id="resetgame">Reset</a></li>
                       <li><a href="https://github.com/magpie5017/ForSciencewithAngular" target="_blank">Github</a></li>
-                      <li>Version 0.1</li>
+                      <li>Version 0.2.1</li>
                   </ul>
             </div>
         </div>
@@ -98,11 +101,11 @@
                         <div id="resourcewrapper">
                             <div id="resourcelooping">
                                 <table width="100%">
-                                    <tr class="resourcerows" ng-repeat-start="(key,value) in gameCtrl.resources" ng-if="$index > 0">
+                                    <tr class="resourcerows" ng-repeat-start="(key,value) in gameCtrl.resources | orderObjBy:'order'" ng-if="value.name !== undefined && value.order > 0">
                                         <td width="70%"><a class="resourcename" ng-mouseenter="gameCtrl.hoverDesc(value.name,'visible')" ng-mouseleave="gameCtrl.hoverDesc(value.name,'hidden')">{{value.name|capitalize}}: {{value.amount}}</a></td>
                                         <td width="30%" style="text-align:right;"><button ng-repeat="count in gameCtrl.buyCounts" ng-click="gameCtrl.buyResources(count,value.name)" ng-mouseenter="gameCtrl.hoverCost(value.name,'visible',count)" ng-mouseleave="gameCtrl.hoverCost(value.name,'hidden')">{{count}}</button></td>
                                     </tr>
-                                    <tr ng-repeat-end ng-if="$index > 0">
+                                    <tr ng-repeat-end ng-if="value.name !== undefined && value.order > 0">
                                         <td colspan="2">&nbsp;&nbsp;&nbsp;<span ng-show="gameCtrl.{{value.name}}maindesc"><i class="fa fa-caret-right"></i> {{value.description|capitalize}}</span>
                                         <span ng-show="gameCtrl.{{value.name}}cost"><i class="fa fa-caret-right"></i> Cost: {{value.cost * gameCtrl.countCheck}} {{value.costName}}</span></td>
                                     </tr>
@@ -188,8 +191,7 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="scripts/game.js"></script>
-<script type="text/javascript" src="scripts/ngStorage.min.js"></script>
+
 <script type="text/javascript" src="scripts/modal.js"></script>
 </body>
 </html>

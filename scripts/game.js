@@ -9,49 +9,83 @@
 		}
 	});
 	
-	//Resources
-	var initValues = {
-		research: 0,
-		programs: {
-			name: "programs",
-			amount: 0,
-			cost: 5,
-			costName: "research",
-			description: "Computer programs generate research for you."
-		},
-		papers:{
-			name: "papers",
-			amount: 0,
-			cost: 10,
-			costName: "research",
-			description: "Publishing papers will bring you prestige and renown."
-		},
-		money: {
-			name: "money",
-			amount: 0,
-			cost: 5	,
-			costName: "papers",
-			description: "Money can buy...stuff."
-		},
-		cabinets: {
-			name: "cabinets",
-			amount: 1,
-			cost: 10,	
-			limit: 1000,
-			costName: "money",
-			description: "Cabinets are where you store your research."
-		}
-	};
+	app.filter('orderObjBy', function(){
+		return function(input, attribute) {
+			if (!angular.isObject(input)) return input;
 	
+			var array = [];
+			for(var objectKey in input) {
+				array.push(input[objectKey]);
+				
+			};
+	
+			array.sort(function(a, b){
+				a = parseInt(a[attribute]);
+				b = parseInt(b[attribute]);
+				return a - b;
+			});
+			return array;
+			
+		};
+		
+	});
 	
 	
 	app.controller('GameController', function($interval,$scope,$localStorage){
 		var self = this;
-		self.resources = initValues;
 		self.logoPristine = true;
 		self.countCheck = 0;
 		self.programminglvl2 = true;
 		self.newslog = "You are managing your scientists well.";
+		
+		self.resources = $localStorage.$default({
+			research: 0,
+			programs: {
+				name: "programs",
+				amount: 0,
+				cost: 5,
+				costName: "research",
+				description: "Computer programs generate research for you.",
+				order: 1
+			},
+			papers: {
+				name: "papers",
+				amount: 0,
+				cost: 10,
+				costName: "research",
+				description: "Publishing papers will bring you prestige and funding.",
+				order: 2
+			},
+			money: {
+				name: "money",
+				amount: 0,
+				cost: 5,
+				inflation: 1.5,
+				costName: "papers",
+				description: "Money can buy...stuff.",
+				order: 3
+			},
+			cabinets: {
+				name: "cabinets",
+				amount: 1,
+				cost: 10,	
+				limit: 100,
+				costName: "money",
+				description: "Cabinets are where you store your research.",
+				order: 4
+			}
+			
+		});
+		
+		
+		
+		self.testSavedEntry = function(){
+			if(!$localStorage.hasOwnProperty("cabinets")){
+				window.alert("cabinets missing");
+			} else {
+				window.alert("nothing wrong");
+			};
+		};
 		
 		self.upgradeResource = function(resource,level){
 			switch(resource){
@@ -84,7 +118,7 @@
 						self.resources.money.amount -= self.resources.cabinets.cost * amount;
 						self.resources.cabinets.amount += amount;
 					} else {
-						alert("Need more Research!");
+						alert("Need more Money!");
 					};
 					break;
 				
@@ -172,22 +206,46 @@
 			};
 		}, 1000);
 		
-		$scope.$storage = $localStorage.$default({
-			research: 0,
-			programs: {
-				amount: 0,
-				cost: 5
-			}
-        });
+	
 		
 		self.resetGame = function() {
-			$storage.$reset({
-      			research: 0,
+			$localStorage.$reset({
+				research: 0,
 				programs: {
+					name: "programs",
 					amount: 0,
-					cost: 5
+					cost: 5,
+					costName: "research",
+					description: "Computer programs generate research for you.",
+					order: 1
+				},
+				papers: {
+					name: "papers",
+					amount: 0,
+					cost: 10,
+					costName: "research",
+					description: "Publishing papers will bring you prestige and funding.",
+					order: 2
+				},
+				money: {
+					name: "money",
+					amount: 0,
+					cost: 5,
+					inflation: 1.5,
+					costName: "papers",
+					description: "Money can buy...stuff.",
+					order: 3
+				},
+				cabinets: {
+					name: "cabinets",
+					amount: 1,
+					cost: 10,	
+					limit: 100,
+					costName: "money",
+					description: "Cabinets are where you store your research.",
+					order: 4
 				}
-    		});
+			});
 		};
 	});	
 	
