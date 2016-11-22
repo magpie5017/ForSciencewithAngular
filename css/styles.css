@@ -6,7 +6,7 @@
 body, html {
 	font-size: 12px;	
 	background-image: url(../images/lt-wood-bg.jpg);
-	background-size: cover;
+	background-repeat: repeat-x;
 	background-position: center top;
 	height: 100%;
 }
@@ -152,10 +152,6 @@ button#click:active {
 	margin-top: 0;	
 }
 
-tr.resourcerows {
-	background-color: #e5e5e5;
-}
-
 .infowindow {
 	padding: 20px 10px;
 	overflow-y: auto;
@@ -179,7 +175,7 @@ tr.resourcerows {
 #newslog {
 	height: 100%;
 	width: 100%;
-	padding: 50px 0 0 20px;
+	padding: 50px 10px 0 20px;
 	background-color: #fff;
 }
 
@@ -301,6 +297,19 @@ tr.resourcerows {
 	padding: 2px 5px;	
 }
 
+tr.resourcerows {
+	background-color: #e5e5e5;
+}
+
+td.rsrcname {
+	width:70%;	
+}
+
+td.rsrcbuttons {
+	width:30%;
+	text-align:right;	
+}
+
 #resourcestable tr.unshaded {
 	background-color: #fff;	
 }
@@ -329,4 +338,160 @@ a.resourcename:hover {
 .desc-triangle {
 	float: left;
 	margin: 4px 5px 0 20px;	
+}
+
+
+/* ************************************ */
+/* ***********MEDIA QUERIES************ */
+/* ************************************ */
+
+/* xs size */
+@media only screen
+and (min-width: 0px)
+and (max-width: 768px) {
+	
+body {
+	overflow-x: hidden;		
+}
+	
+#row1 {
+	padding-top: 25px;		
+}
+
+#logo {
+	text-align: center;	
+	margin: 0;
+}
+
+.gearlogo {
+	height: 150px;
+	width: auto;	
+}
+
+#pointerarrow {
+	margin-top: 75px;	
+}
+
+#click {
+	width: 100%;
+	height: 45px;
+    font-size: 18px;	
+}
+
+.researchbtn {
+	margin-top: 0;	
+}
+
+#corpnav {
+	margin-top: 10px;	
+}
+
+#newslogwrapper {
+	float: none;
+	height: 120px;	
+}
+
+#newslog {
+	padding-top: 20px;	
+}
+
+#tablabels ul li a {
+	padding: 5px 7px 15px 7px;
+}
+
+#righttablabels ul li a {
+	    padding: 5px 4px 15px 4px;
+}
+
+td.rsrcname {
+	width:50%;	
+}
+
+td.rsrcbuttons {
+	width:50%;	
+}
+
+.infowindow {
+	height: 250px;	
+}
+
+#rightui {
+	margin-right: 0;
+	height: 170px;	
+}
+
+#rtinfowindow {
+    padding: 15px 10px 0 10px;
+}
+
+#rtinfowindow .panel {
+	margin-bottom: 0;	
+}
+	
+}
+
+/* sm size */
+@media only screen
+and (min-width: 768px)
+and (max-width: 992px) {
+	
+body {
+	overflow-x: hidden;		
+}
+	
+#row2 {
+	margin-left: 0;	
+}
+	
+#click {
+	width: 100%;	
+}
+
+#corpnav li {
+	margin: 10px 5px 5px 5px;
+}
+
+#newslogwrapper {
+	height: 270px;	
+}
+
+#rightui {
+	margin-right: 0;
+	height: 200px;
+}
+
+.infowindow {
+	height: 230px;	
+}
+
+}
+
+/* md size */
+@media only screen
+and (min-width: 993px)
+and (max-width: 1200px) {
+	
+#corpnav li {
+	margin: 10px 5px 5px 5px;
+}
+	
+#newslogwrapper {
+	height: 290px;	
+}
+	
+.infowindow {
+	height: 250px;	
+}
+
+#rightui {
+	margin-right: 0;
+	height: 200px;	
+}
+
+}
+
+/* lg size */
+@media only screen
+and (min-width: 1200px) {
+	
 }

@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <dwsync>
-<file name="bootstrap.min.js" server="ftp.megangovil.com//forscience/" local="130482620520000000" remote="130995383400000000" />
-<file name="game.js" server="ftp.megangovil.com//forscience/" local="131044389427879822" remote="131044281600000000" />
-<file name="modal.js" server="ftp.megangovil.com//forscience/" local="130964975662663727" remote="130995383400000000" />
-<file name="ngStorage.min.js" server="ftp.megangovil.com//forscience/" local="130916952480000000" remote="130995383400000000" />
+<file name="bootstrap.min.js" server="ftp.megangovil.com//forscience/" local="130482620520000000" remote="130995383400000000" Dst="-1" />
+<file name="game.js" server="ftp.megangovil.com//forscience/" local="131231182028737828" remote="131231110200000000" Dst="1" />
+<file name="modal.js" server="ftp.megangovil.com//forscience/" local="130964975662663727" remote="130995383400000000" Dst="-1" />
+<file name="ngStorage.min.js" server="ftp.megangovil.com//forscience/" local="130916952480000000" remote="130995383400000000" Dst="-1" />
+<file name="radar-chart.js" server="ftp.megangovil.com//forscience/" local="131231181904371847" remote="131231110200000000" Dst="1" />
+<file name="radar-chart2.js" server="ftp.megangovil.com//forscience/" local="131226046947335445" remote="131225940600000000" Dst="2" />
+<file name="test_data.csv" server="ftp.megangovil.com//forscience/" local="131226049160585406" remote="131225940600000000" Dst="2" />
+<file name="app.js" server="ftp.megangovil.com//forscience/" local="131235392480049110" remote="131235320400000000" Dst="1" />
+<file name="d3-factory.js" server="ftp.megangovil.com//forscience/" local="131235407315895889" remote="131235334800000000" Dst="1" />
+<file name="radar-chart3.js" server="ftp.megangovil.com//forscience/" local="131236348132934711" remote="131236275600000000" Dst="1" />
+<file name="radar-chart4.js" server="ftp.megangovil.com//forscience/" local="131238041781381788" remote="131237969400000000" Dst="1" />
 </dwsync>
