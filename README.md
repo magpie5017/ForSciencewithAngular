@@ -10,16 +10,16 @@ From Wikipedia:
 For Science! is built entirely with Javascript, Angular.js, HTML, and CSS. This is the third iteration of the game, built as an exercise in Angular.js.
 
 ### Version
-0.4
+0.5
 #### Version Features
-* Bug fix: Incorrect resource ordering on page refresh
-* Fix: Reduced file sizes and added browser caching; improved page loading time by 1.2 seconds
-* Fix: Modularized Angular code for readability and scalability
-* Fix: More efficient and scalable object storage
-* Fix: Corrected mobile display of site
-* Fix: Added cost to main resource description to better enable resource buying on mobile
-* Fix: Adjusted logo coloring
-* Introduced character buffs: Happiness, Productivity, and Economy
-* Introduced character colors
-* Developed D3.js graphs to display character buffs
-* Introduced back-end for individual character resource counts
+* Major Feature: Implemented Individual Study event to move user from tutorial level to main game
+  * Individual Study event dashboard and resource allocation
+  * Individual resource dashboards
+  * Summary resource dashboard
+  * Methods of acquiring resources for individual characters
+  * Checks for existing events pre- and post- Individual Study
+* Update: Implemented upgrade and event descriptions
+* Fix: Rearranged code and object storage for better readability of code
+* Fix: Various visual adjustments
+* Fix: Losing news feed on page refresh
+* Introduced: Styling for Achievements tab
