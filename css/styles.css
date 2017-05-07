@@ -21,18 +21,25 @@ body, html {
 	width: 100%;
 	background-image: url(../images/bottom-border.jpg);
 	background-position: bottom center;
-	background-repeat: repeat-x;	
+	background-repeat: repeat-x;
+	padding-bottom: 30px;	
+}
+
+#row1bg {
+	background-image: url(../images/top-border.jpg);
+	background-repeat: repeat-x;
 }
 
 #row1 {
-	background-image: url(../images/top-border.jpg);
-	background-repeat: repeat-x;
 	padding-top: 40px;
+	max-width: 1400px;
+	margin: 0 auto;
 }
 
 #row2 {
 	min-height: 400px;	
-	margin-left: 10px;
+	max-width: 1400px;
+	margin: 0 auto;
 }
 
 .picright {
@@ -119,14 +126,32 @@ button:hover {
 #pointerarrow {
 	width: 50px;
 	height: auto;	
+	margin-top: 133px;
 }
 
 .modal-body strong {
 	color: #000;	
 }
 
+.autosave.ng-hide-add, .autosave.ng-hide-remove {
+	transition: all linear 0s;
+}
+
+.autosave.ng-hide-add-active, .autosave.ng-hide-remove-active {
+  transition: 1s linear all;
+}
+.autosave.ng-hide-remove-active {
+	transition-delay: 4s !important;
+}
+
+.autosave.ng-hide {
+  	opacity:0;	
+	
+}
+
 .researchbtn {
-	margin-top: 80px;	
+	margin-top: 80px;
+	text-align: center;	
 }
 
 #click {
@@ -137,8 +162,35 @@ button:hover {
 	border: 4px outset buttonface;
 }
 
-button#click:active {
-	background-color: #515252
+button#click:active, button.clicksm:active {
+	background-color: #515252;
+}
+
+.clicksm {
+	margin: 15px 5px 4px 0;
+	border: 4px outset buttonface;
+	font-size: 20px;
+	padding: 5px;	
+}
+
+.clicksm .fa-flask {
+	color: #8aa2ce;
+}
+
+.clicksm .fa-cogs {
+	color: #ce8a8a;
+}
+
+.clicksm .fa-bomb {
+	color: #ce8ac7;
+}
+
+.clicksm .fa-heartbeat {
+	color: #94b08a;
+}
+
+.clicksm .fa-wpexplorer {
+	color: #83b8b9;
 }
 
 #mainui {	
@@ -164,19 +216,23 @@ button#click:active {
 	padding: 20px 10px;	
 }
 
+#rtinfowindow .panel {
+	background-color: transparent;	
+}
+
 #newslogwrapper {
 	width: 100%;
 	height: 380px;
 	overflow-y: auto;
 	float: left;
 	box-shadow: 3px 1px 3px #888888;
+	background-color: #fff;
 }
 
 #newslog {
 	height: 100%;
 	width: 100%;
 	padding: 50px 10px 0 20px;
-	background-color: #fff;
 }
 
 #rightui {
@@ -184,6 +240,41 @@ button#click:active {
 	margin-right: 10px;
     height: 379px;
 	box-shadow: 3px 1px 3px #888888;	
+}
+
+#indivstudywarning {
+	padding: 0 10px 10px 10px;
+    margin: 0 auto;
+    display: block;	
+}
+
+#indivstudyback {
+	padding: 10px;
+    margin: 5px auto;
+    display: block;	
+}
+
+#studytable th, #studytable td {
+	padding: 5px 10px;
+	text-align: center;	
+}
+
+#studytable th:first-child, #studytable td:first-child {
+	text-align: left;	
+}
+
+#studytable .minusbtn {
+	background-color: #933;
+	color: #fff;
+}
+
+#studytable .plusbtn {
+	background-color: #3C9;
+	color: #fff;
+}
+
+#studytable .linebreak {
+	display: inline;
 }
 
 
@@ -226,6 +317,11 @@ button#click:active {
 #tablabels ul li {
 	border-right: #e5e5e5 thin solid;	
 	display: inline;
+	margin: 0 0 0 -4px;
+}
+
+#tablabels ul li:first-child {
+	margin: 0;
 }
 
 #tablabels ul li a {
@@ -249,6 +345,26 @@ button#click:active {
 	display: none;	
 }
 
+#achievetab i {
+	margin: 0 5px 8px 0;
+	padding: 3px;
+	border: #ccc thin solid;
+	color: #fff;
+	background-color: #ccc;	
+}
+
+#achievetab i:hover {
+	border: #515252 thin solid;
+	color: #515252;
+	background-color: #fff;	
+}
+
+#achievedesc {
+	position: absolute;
+    top: 80px;
+    right: 15px;
+}
+
 
 /* Right Tab Navigation */
 
@@ -266,6 +382,11 @@ button#click:active {
 #righttablabels ul li {
 	display: inline;
 	border-right: #e5e5e5 thin solid;
+	margin: 0 0 0 -4px;
+}
+
+#righttablabels ul li:first-child {
+	margin: 0;
 }
 
 #righttablabels ul li a {
@@ -340,6 +461,62 @@ a.resourcename:hover {
 	margin: 4px 5px 0 20px;	
 }
 
+/* Main List Interface */
+
+.chartotaltable {
+	width: 100%;	
+}
+
+.chartotaltable tr:nth-child(1), .chartotaltable tr:nth-child(2), .chartotaltable tr:nth-child(5), .chartotaltable tr:nth-child(6), .chartotaltable tr:nth-child(9), .chartotaltable tr:nth-child(10) {
+	background-color: #e5e5e5;
+}
+
+.chartotaltable tr:nth-child(1) td:nth-child(1) {
+	border-top-left-radius: 4px;	
+}
+
+.chartotaltable tr:nth-child(1) td:last-child {
+	border-top-right-radius: 4px;	
+}
+
+.chartotaltable tr:last-child td:nth-child(1) {
+	border-bottom-left-radius: 4px;	
+}
+
+.chartotaltable tr:last-child td:last-child {
+	border-bottom-right-radius: 4px;	
+}
+
+.chartotaltable tr.charrow2 td {
+	padding-bottom: 5px;
+}
+
+.chartotaltable tr.charrow1 td {
+	padding-top: 5px;
+}
+
+.chartotaltable td {
+	width: 33%;	
+	text-align: center;
+}
+
+.chartotaltable td.namecell {
+	vertial-align: top;
+	font-size: 16px;	
+}
+
+.totaldash a {
+	background-color: #e5e5e5;
+	cursor: text;
+	text-decoration: none;
+	color: #000;
+}
+
+.totaldash a:hover {
+	text-decoration: none;
+	color: #000;
+}
+
 
 /* ************************************ */
 /* ***********MEDIA QUERIES************ */
@@ -378,12 +555,32 @@ body {
     font-size: 18px;	
 }
 
+.clicksm {
+	font-size: 14px;
+}
+
 .researchbtn {
 	margin-top: 0;	
 }
 
 #corpnav {
 	margin-top: 10px;	
+}
+
+#corpnav li {
+	margin: 10px 5px 5px 5px;
+}
+
+#studytable th, #studytable td {
+	padding: 1px;	
+}
+
+#studytable td {
+	text-align: left;	
+}
+
+#studytable .linebreak {
+	display: block;
 }
 
 #newslogwrapper {
@@ -422,6 +619,9 @@ td.rsrcbuttons {
 
 #rtinfowindow {
     padding: 15px 10px 0 10px;
+	overflow-y: auto;
+    overflow-x: hidden;
+    height: 130px;
 }
 
 #rtinfowindow .panel {
@@ -438,9 +638,23 @@ and (max-width: 992px) {
 body {
 	overflow-x: hidden;		
 }
+
+#row1 {
+	margin-bottom: 5px;	
+}
 	
 #row2 {
 	margin-left: 0;	
+}
+
+.gearlogo {
+	height: 140px;
+	width: auto;	
+}
+
+#pointerarrow {
+	width: 30px;
+	margin-top: 100px;	
 }
 	
 #click {

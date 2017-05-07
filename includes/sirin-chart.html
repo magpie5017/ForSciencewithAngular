@@ -1,5 +1,31 @@
-
+<div class="col-md-8 col-lg-9">
+    <h2>Sirin: Experimental Genetics</h2>
+    <div class="indivtable" ng-hide="gameCtrl.saved.indivStudyEvent.visible">
+        <div id="total_research">Research: <span id="totalresearch">{{gameCtrl.saved.sirin.research}}</span> / {{gameCtrl.saved.sirin.cabinets.modifier * gameCtrl.saved.sirin.cabinets.amount}}</div>                 
+        <div id="resourcewrapper">
+            <div id="resourcelooping">
+                <table width="100%">
+                    <tr class="resourcerows" ng-repeat-start="resrs in gameCtrl.saved.sirin" ng-if="resrs.amount !== undefined">
+                        <td class="rsrcname">{{resrs.name|capitalize}}: {{resrs.amount}}</td>
+                        <td class="rsrcbuttons"><button ng-repeat="count in gameCtrl.buyCounts" ng-click="gameCtrl.buyResource(resrs.name,count,'sirin')" ng-mouseenter="gameCtrl.hoverCost(resrs.name,'visible',count)" ng-mouseleave="gameCtrl.hoverCost(resrs.name,'hidden')">{{count}}</button></td>
+                    </tr>
+                    <tr ng-repeat-end ng-if="resrs.amount !== undefined">
+                        <td class="rsrcdesc" colspan="2">&nbsp;&nbsp;&nbsp;<span ng-show="gameCtrl.{{resrs.name}}cost"><i class="fa fa-caret-right"></i> Cost: {{resrs.cost * gameCtrl.countCheck}} {{resrs.costName}}</span></td>
+                    </tr>
+                </table>
+            </div>
+        </div><!-- /resourcewrapper -->
+    </div>
+    <p>Maintains a small zoo of ongoing experiments in various types of gene therapy, many of them for weaponized purposes.</p>
+    <p>Unintentionally 'creepy', Sirin has an almost fanatical interest in his own work that tends to put off the others.</p>
+    
+    <p ng-show="gameCtrl.saved.indivStudyEvent.visible">{{tabCtrl.indivStudy}}</p>
+</div>
+<div class="col-md-4 col-lg-3">
+    <img src="images/sirinpic.jpg" class="picright" />
     <div id="sirinchartwrapper" class="radarchart">
         <d3-lines char="sirin" ng-cloak></d3-lines>
     </div>
+</div>
+    
 

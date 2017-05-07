@@ -1,0 +1,19 @@
+<div id="total_research" ng-show="gameCtrl.saved.indivStudyEvent.visible">Research: <span id="totalresearch">{{gameCtrl.saved.tutorial.research}}</span> / {{gameCtrl.saved.tutorial.cabinets.modifier * gameCtrl.saved.tutorial.cabinets.amount}}</div>
+                        
+<div id="resourcewrapper" ng-show="gameCtrl.saved.indivStudyEvent.visible">
+    <div id="resourcelooping">
+        <table width="100%">
+            <tr class="resourcerows" ng-repeat-start="resrs in gameCtrl.saved.tutorial" ng-if="resrs.amount !== undefined">
+                <td class="rsrcname"><a class="resourcename" ng-mouseenter="gameCtrl.hoverDesc(resrs.name,'visible')" ng-mouseleave="gameCtrl.hoverDesc(resrs.name,'hidden')">{{resrs.name|capitalize}}: {{resrs.amount}}</a></td>
+                <td class="rsrcbuttons"><button ng-repeat="count in gameCtrl.buyCounts" ng-click="gameCtrl.buyResource(resrs.name,count,'tutorial')" ng-mouseenter="gameCtrl.hoverCost(resrs.name,'visible',count)" ng-mouseleave="gameCtrl.hoverCost(resrs.name,'hidden')">{{count}}</button></td>
+            </tr>
+            <tr ng-repeat-end ng-if="resrs.amount !== undefined">
+                <td class="rsrcdesc" colspan="2">&nbsp;&nbsp;&nbsp;<span ng-show="gameCtrl.{{resrs.name}}maindesc"><i class="fa fa-caret-right"></i> {{resrs.description|capitalize}} Cost: {{resrs.cost}} {{resrs.costName|capitalize}}</span>
+                <span ng-show="gameCtrl.{{resrs.name}}cost"><i class="fa fa-caret-right"></i> Cost: {{resrs.cost * gameCtrl.countCheck}} {{resrs.costName}}</span></td>
+            </tr>
+        </table>
+    </div>
+</div>
+                        
+    
+

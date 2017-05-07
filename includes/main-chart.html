@@ -1,0 +1,36 @@
+<div class="col-xs-12 col-md-8">
+    <div class="chartotaldash">
+        <h2>Individual Totals</h2>
+        <div class="panel panel-default">
+            <table class="chartotaltable">
+                <tr class="charrow1" ng-repeat-start="char in gameCtrl.saved" ng-if="char.firstName !== undefined && char.firstName !== 'tutorial'">
+                    <td class="namecell">{{char.firstName|capitalize}}</td>
+                    <td>Programs<br />
+                    {{char.programs.amount}}</td>
+                    <td>Papers<br />
+                    {{char.papers.amount}}</td>
+                </tr>
+                <tr class="charrow2" ng-repeat-end ng-if="char.firstName !== undefined && char.firstName !== 'tutorial'">
+                    <td>Research<br />
+                    {{char.research}}</td>
+                    <td>Money<br />
+                    {{char.money.amount}}</td>
+                    <td>Cabinets<br />
+                    {{char.cabinets.amount}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="col-xs-12 col-md-4">
+    <div class="totaldash">
+        <h2>Team Totals</h2>
+        <p>Research: {{gameCtrl.resourceTotal('research')}}</p>
+        <p ng-repeat="resrs in gameCtrl.saved.tutorial" ng-if="resrs.name !== undefined"><a ng-mouseenter="gameCtrl.hoverDesc(resrs.name,'visible')" ng-mouseleave="gameCtrl.hoverDesc(resrs.name,'hidden')">{{resrs.name|capitalize}}</a>: {{gameCtrl.resourceTotal(resrs.name)}}</p>
+        <p ng-repeat="resrs in gameCtrl.saved.tutorial" ng-if="resrs.name !== undefined"><span ng-show="gameCtrl.{{resrs.name}}maindesc"><i class="fa fa-caret-right"></i> {{resrs.description}}</span></p>
+    </div>
+</div>
+<div class="clearboth"></div>
+                        
+    
+

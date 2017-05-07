@@ -1,0 +1,46 @@
+ <div id="indivstudy" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    
+                    <h4 class="modal-title">Individual Study</h4>
+                  </div>
+                  <div class="modal-body">
+                    <p>It seems the group has spent enough time working together and want to strike out on their own.</p>
+                    <p>You'll need to divide the resources they've acquired up to this point. Use the interface below to assign how much goes to each person. Don't worry, they'll take whatever you give <strong>and like it</strong>. The only exception is cabinets: everybody has to have at least one or they wouldn't have anywhere to put their junk. Ahem, research.</p>
+                    
+                    <button id="indivstudywarning" ng-click="gameCtrl.indivStudyInit()" ng-hide="gameCtrl.studyTableShow"><h3>Warning:</h3>
+                    <h4>You will not be able to leave this interface until<br />
+                    all resources have been allocated.<br />
+                    Press to continue.</h4></button>
+                    
+                    <button id="indivstudyback" type="button" data-dismiss="modal" ng-hide="gameCtrl.studyTableShow"><h4>Go back</h4></button>
+                    
+                    <table id="studytable" class="table table-striped table-responsive" ng-show="gameCtrl.studyTableShow">
+                    	<thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Research<br />
+                                <span ng-show="gameCtrl.saved.indivStudyEvent.visible">{{gameCtrl.saved.tutorial.research}}<br /></span>
+                                <button ng-click="gameCtrl.autoResSplit('research')" ng-show="gameCtrl.saved.indivStudyEvent.visible">Auto<br />Split</button></th>
+                                <th ng-repeat="resrses in gameCtrl.saved.tutorial" ng-if="resrses.amount !== undefined">{{resrses.name|capitalize}}<br />
+                                <span ng-show="gameCtrl.saved.indivStudyEvent.visible">{{resrses.amount}}<br /></span>
+                                <button ng-click="gameCtrl.autoResSplit(resrses.name)" ng-show="gameCtrl.saved.indivStudyEvent.visible">Auto<br />Split</button></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                    	<tr ng-repeat="chara in gameCtrl.saved" ng-if="chara.firstName !== undefined && chara.firstName !== 'tutorial'">
+                        	<td>{{chara.firstName|capitalize}}</td>
+                            <td><button class="minusbtn linebreak"  ng-show="gameCtrl.saved.indivStudyEvent.visible" ng-click="gameCtrl.indivStudyMinus('research',chara.firstName)">-</button> <span class="linebreak">{{chara.research}}</span> <button class="plusbtn linebreak" ng-show="gameCtrl.saved.indivStudyEvent.visible" ng-click="gameCtrl.indivStudyPlus('research',chara.firstName)">+</button></td>
+                            <td ng-repeat="resrsa in chara" ng-if="resrsa.amount !== undefined"><button class="minusbtn linebreak" ng-show="gameCtrl.saved.indivStudyEvent.visible" ng-click="gameCtrl.indivStudyMinus(resrsa.name,chara.firstName)">-</button> <span class="linebreak">{{resrsa.amount}}</span> <button class="plusbtn linebreak" ng-show="gameCtrl.saved.indivStudyEvent.visible" ng-click="gameCtrl.indivStudyPlus(resrsa.name,chara.firstName)">+</button></td>
+                        </tr>
+                    </table>
+                  </div>
+                  <div class="modal-footer">
+                    <div id="modalclosebtn"><span ng-if="gameCtrl.saved.tutorial.research === 0 && gameCtrl.saved.tutorial.programs.amount === 0 && gameCtrl.saved.tutorial.papers.amount === 0 && gameCtrl.saved.tutorial.money.amount === 0 && gameCtrl.saved.tutorial.cabinets.amount === 0">All resources allocated. Are you sure? <button type="button" ng-click="gameCtrl.indivStudyActivate()"> Yes!</button></span>
+                    <button type="button" class="close" data-dismiss="modal" ng-hide="gameCtrl.saved.indivStudyEvent.visible">Close</button></div>
+                  </div>
+                </div>
+              </div>
+            </div>

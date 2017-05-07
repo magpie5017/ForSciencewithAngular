@@ -10,8 +10,8 @@
 				   link: function (scope, element, attrs) {
 					   var setChar = attrs.char;
 					   var setDiv = "#" + attrs.char + "chartwrapper";
-					   var setColor = scope["gameCtrl"]["resources"][setChar]["mainColor"];
-					   var setHover = scope["gameCtrl"]["resources"][setChar]["secondColor"];						
+					   var setColor = scope["gameCtrl"]["saved"][setChar]["mainColor"];
+					   var setHover = scope["gameCtrl"]["saved"][setChar]["secondColor"];						
 
 						var width = 80,
 							height = 80,
@@ -19,9 +19,9 @@
 							innerRadius = 0.2 * radius;
 							
 						var charData = [
-							{name: "Happiness", amount: scope["gameCtrl"]["resources"][setChar]["happinessBuff"]},
-							{name: "Productivity", amount: scope["gameCtrl"]["resources"][setChar]["productivityBuff"]},
-							{name: "Economy", amount: scope["gameCtrl"]["resources"][setChar]["economyBuff"]}
+							{name: "Happiness", amount: scope["gameCtrl"]["saved"][setChar]["happinessBuff"]},
+							{name: "Productivity", amount: scope["gameCtrl"]["saved"][setChar]["productivityBuff"]},
+							{name: "Economy", amount: scope["gameCtrl"]["saved"][setChar]["economyBuff"]}
 						];
 						
 						var pie = d3.layout.pie()

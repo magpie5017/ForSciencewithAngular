@@ -1,5 +1,31 @@
-
+<div class="col-md-8 col-lg-9">
+    <h2>Tourik: Observational Astronomy</h2>
+    <div class="indivtable" ng-hide="gameCtrl.saved.indivStudyEvent.visible">
+        <div id="total_research">Research: <span id="totalresearch">{{gameCtrl.saved.tourik.research}}</span> / {{gameCtrl.saved.tourik.cabinets.modifier * gameCtrl.saved.tourik.cabinets.amount}}</div>                 
+        <div id="resourcewrapper">
+            <div id="resourcelooping">
+                <table width="100%">
+                    <tr class="resourcerows" ng-repeat-start="resrs in gameCtrl.saved.tourik" ng-if="resrs.amount !== undefined">
+                        <td class="rsrcname">{{resrs.name|capitalize}}: {{resrs.amount}}</td>
+                        <td class="rsrcbuttons"><button ng-repeat="count in gameCtrl.buyCounts" ng-click="gameCtrl.buyResource(resrs.name,count,'tourik')" ng-mouseenter="gameCtrl.hoverCost(resrs.name,'visible',count)" ng-mouseleave="gameCtrl.hoverCost(resrs.name,'hidden')">{{count}}</button></td>
+                    </tr>
+                    <tr ng-repeat-end ng-if="resrs.amount !== undefined">
+                        <td class="rsrcdesc" colspan="2">&nbsp;&nbsp;&nbsp;<span ng-show="gameCtrl.{{resrs.name}}cost"><i class="fa fa-caret-right"></i> Cost: {{resrs.cost * gameCtrl.countCheck}} {{resrs.costName}}</span></td>
+                    </tr>
+                </table>
+            </div>
+        </div><!-- /resourcewrapper -->
+    </div>
+    <p>Employs a powerful telescope to record observational data about distant spacial bodies.</p>
+    <p>Old enough to be a grandfather of the group, Tourik keeps to himself and subsequently not much is known about his actual work.</p>
+    
+    <p ng-show="gameCtrl.saved.indivStudyEvent.visible">{{tabCtrl.indivStudy}}</p>
+</div>
+<div class="col-md-4 col-lg-3">
+    <img src="images/tourikpic.jpg" class="picright" />
     <div id="tourikchartwrapper" class="radarchart">
         <d3-lines char="tourik" ng-cloak></d3-lines>
     </div>
+</div>
+    
 

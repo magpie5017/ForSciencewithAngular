@@ -11,13 +11,14 @@
       href="images/favicon.png" />
       
 <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="css/styles.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script> 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
 <script type="text/javascript" src="scripts/ngStorage.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
 
 
 
@@ -36,40 +37,50 @@
 
 <body ng-controller="GameController as gameCtrl">
 <div id="wrapper">
-    <div class="row" id="row1">
-        <div class="col-sm-4">
-            <div id="logo">
-                <a href="#" data-toggle="modal" data-target="#gameintro" id="logoimg" ng-click="gameCtrl.resources.logoPristine = false"><img src="images/logo.png" class="gearlogo" border="0" /><img src="images/arrowleft.gif" ng-show="gameCtrl.resources.logoPristine" id="pointerarrow" /></a>
-            </div><!-- end logo -->
-        </div>
-        
-         <!-- Logo Modal -->
-         <div ng-include="'includes/logo-modal.html'"></div>
-           
-        
-        <div class="col-sm-4">
-            <div class="researchbtn">
-                <button id="click" ng-click="gameCtrl.clickResearch(1,'tutorial')"><i class="fa fa-flask"></i> Conduct Research</button>
+	<div id="row1bg">
+        <div class="row" id="row1">
+            <div class="col-sm-4">
+                <div id="logo">
+                    <a href="#" data-toggle="modal" data-target="#gameintro" id="logoimg" ng-click="gameCtrl.saved.logoPristine = false"><img src="images/logo.png" class="gearlogo" border="0" /><img src="images/redone-arrow.gif" ng-show="gameCtrl.saved.logoPristine" id="pointerarrow" /></a>
+                </div><!-- end logo -->
             </div>
-        </div>
-        
-        <div class="col-sm-4">
-            <div id="corpnav">
-                  <ul>
-                      <li><span id="autosavenote">autosaving...</span></li>
-                      <li><a ng-click="gameCtrl.resetGame()" id="resetgame">Reset</a></li>
-                      <li><a href="https://github.com/magpie5017/ForSciencewithAngular" target="_blank">Github</a></li>
-                      <li>v0.4</li>
-                  </ul>
+            
+             <!-- Logo Modal -->
+             <div ng-include="'includes/logo-modal.html'"></div>
+               
+            
+            <div class="col-sm-4">
+                <div class="researchbtn">
+                    <button id="click" ng-click="gameCtrl.clickResearch(1,'tutorial')" ng-show="gameCtrl.saved.indivStudyEvent.visible"><i class="fa fa-flask"></i> Conduct Research</button>
+                    <div ng-hide="gameCtrl.saved.indivStudyEvent.visible" ng-cloak>
+                        <h3 class="indivConduct">Conduct Research</h3>
+                        <button class="clicksm" ng-click="gameCtrl.clickResearch(1,'ani')"><i class="fa fa-flask"></i> A</button>
+                        <button class="clicksm" ng-click="gameCtrl.clickResearch(1,'koko')"><i class="fa fa-cogs"></i> K</button>
+                        <button class="clicksm" ng-click="gameCtrl.clickResearch(1,'meina')"><i class="fa fa-bomb"></i> M</button>
+                        <button class="clicksm" ng-click="gameCtrl.clickResearch(1,'sirin')"><i class="fa fa-heartbeat"></i> S</button>
+                        <button class="clicksm" ng-click="gameCtrl.clickResearch(1,'tourik')"><i class="fa fa-wpexplorer"></i> T</button>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div><!-- /row1 -->
+            
+            <div class="col-sm-4">
+                <div id="corpnav">
+                      <ul>
+                          <li><span class="autosave" ng-show="gameCtrl.togglefade">autosaving...</span></li>
+                          <li><a ng-click="gameCtrl.resetGame()" id="resetgame">Reset</a></li>
+                          <li><a href="https://github.com/magpie5017/ForSciencewithAngular" target="_blank">Github</a></li>
+                          <li>v0.4.5</li>
+                      </ul>
+                </div>
+            </div>
+        </div><!-- /row1 -->
+    </div><!-- /row1bg -->
     
     <div class="row" id="row2">
         <div class="col-sm-3">
             <div id="newslogwrapper">
                   <div id="newslog">
-                      <pre>{{gameCtrl.newslog}}</pre>
+                      <pre>{{gameCtrl.saved.newslog}}</pre>
                   </div>
               </div><!-- end newslogwrapper -->
         </div>
@@ -88,106 +99,32 @@
                 </div>
                 <div class="infowindow">
                     <div id="maintab" class="tabcontent panel" ng-show="tabCtrl.isSelected(1)">
-                        <div id="total_research">Research: <span id="totalresearch">{{gameCtrl.resources.tutorial.research}}</span> / {{gameCtrl.resources.tutorial.cabinets.modifier * gameCtrl.resources.tutorial.cabinets.amount}}</div>
-                        
-                        <div id="resourcewrapper">
-                            <div id="resourcelooping">
-                                <table width="100%">
-                                    <tr class="resourcerows" ng-repeat-start="resrs in gameCtrl.resources.tutorial" ng-if="resrs.amount !== undefined">
-                                        <td class="rsrcname"><a class="resourcename" ng-mouseenter="gameCtrl.hoverDesc(resrs.name,'visible')" ng-mouseleave="gameCtrl.hoverDesc(resrs.name,'hidden')">{{resrs.name|capitalize}}: {{resrs.amount}}</a></td>
-                                        <td class="rsrcbuttons"><button ng-repeat="count in gameCtrl.buyCounts" ng-click="gameCtrl.buyResource(resrs.name,count,'tutorial')" ng-mouseenter="gameCtrl.hoverCost(resrs.name,'visible',count)" ng-mouseleave="gameCtrl.hoverCost(resrs.name,'hidden')">{{count}}</button></td>
-                                    </tr>
-                                    <tr ng-repeat-end ng-if="resrs.amount !== undefined">
-                                        <td class="rsrcdesc" colspan="2">&nbsp;&nbsp;&nbsp;<span ng-show="gameCtrl.{{resrs.name}}maindesc"><i class="fa fa-caret-right"></i> {{resrs.description|capitalize}} Cost: {{resrs.cost}} {{resrs.costName|capitalize}}</span>
-                                        <span ng-show="gameCtrl.{{resrs.name}}cost"><i class="fa fa-caret-right"></i> Cost: {{resrs.cost * gameCtrl.countCheck}} {{resrs.costName}}</span></td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
+                    	<div ng-hide="gameCtrl.saved.indivStudyEvent.visible" ng-include="'includes/main-chart.html'"></div>
+                        <div ng-show="gameCtrl.saved.indivStudyEvent.visible" ng-include="'includes/tutorial-chart.html'"></div>
                     </div><!-- end maintab --> 
                     
                     <div id="anitab" class="tabcontent panel" ng-show="tabCtrl.isSelected(2)">
-                        <div class="col-md-8 col-lg-9">
-                            <h2>Ani: Analytic Epidemiology</h2>
-                            <p>Studys the causes of diseases in certain populations. Occasionally involves experimental work on lab rats and other small mammals.</p>
-                            <p>Quiet and well-thought-of by the rest of the group, Ani is sometimes too soft-hearted for the work she does.</p>
-                            <p>Happiness: {{gameCtrl.resources.ani.happinessBuff}}<br />
-                            Productivity: {{gameCtrl.resources.ani.productivityBuff}}<br />
-                            Economy: {{gameCtrl.resources.ani.economyBuff}}</p>
-                            <p>{{tabCtrl.indivStudy}}</p>
-                        </div>
-                        <div class="col-md-4 col-lg-3">
-                        	<img src="images/anipic.jpg" class="picright" />
-                            <div ng-include="'includes/ani-chart.html'"></div>
-                        </div>
+                        <div ng-include="'includes/ani-chart.html'"></div>
                         <div class="clearboth"></div>
                     </div><!-- end anitab -->
                     
                     <div id="kokotab" class="tabcontent panel" ng-show="tabCtrl.isSelected(3)">
-                    	<div class="col-md-8 col-lg-9">
-                            <h2>Koko: Cognitive Robotics</h2>
-                            <p>Developing AI and specific-task machinery. Specializes in small robotics.</p>
-                            <p>A chronic prankster, Koko is a brilliant researcher, but her breakthroughs are often offset by procrastination.</p>
-                            <p>Happiness: {{gameCtrl.resources.koko.happinessBuff}}<br />
-                            Productivity: {{gameCtrl.resources.koko.productivityBuff}}<br />
-                            Economy: {{gameCtrl.resources.koko.economyBuff}}</p>
-                            <p>{{tabCtrl.indivStudy}}</p>
-                        </div>
-                        <div class="col-md-4 col-lg-3">
-                        	<img src="images/kokopic.jpg" class="picright" />
-                            <div ng-include="'includes/koko-chart.html'"></div>
-                        </div>
+                    	<div ng-include="'includes/koko-chart.html'"></div>
                         <div class="clearboth"></div>
                     </div><!-- end kokotab -->
                     
                     <div id="meinatab" class="tabcontent panel" ng-show="tabCtrl.isSelected(4)">
-                        <div class="col-md-8 col-lg-9">
-                            <h2>Meina: Advanced Weapons Development</h2>
-                            <p>Focuses primarily on projectiles and explosives, with occasional grants to also develop defensive measures.</p>
-                            <p>Stubborn and a little spoiled, Meina spends more time than most attempting to socialize with the rest of the group.</p>
-                            <p>Happiness: {{gameCtrl.resources.meina.happinessBuff}}<br />
-                            Productivity: {{gameCtrl.resources.meina.productivityBuff}}<br />
-                            Economy: {{gameCtrl.resources.meina.economyBuff}}</p>
-                            <p>{{tabCtrl.indivStudy}}</p>
-                        </div>
-                        <div class="col-md-4 col-lg-3">
-                        	<img src="images/meinapic.jpg" class="picright" />
-                            <div ng-include="'includes/meina-chart.html'"></div>
-                        </div>
+                        <div ng-include="'includes/meina-chart.html'"></div>
                         <div class="clearboth"></div>
                     </div><!-- end meinatab -->
                     
                     <div id="sirintab" class="tabcontent panel" ng-show="tabCtrl.isSelected(5)">
-                        <div class="col-md-8 col-lg-9">
-                            <h2>Sirin: Experimental Genetics</h2>
-                            <p>Maintains a small zoo of ongoing experiments in various types of gene therapy, many of them for weaponized purposes.</p>
-                            <p>Unintentionally 'creepy', Sirin has an almost fanatical interest in his own work that tends to put off the others.</p>
-                            <p>Happiness: {{gameCtrl.resources.sirin.happinessBuff}}<br />
-                            Productivity: {{gameCtrl.resources.sirin.productivityBuff}}<br />
-                            Economy: {{gameCtrl.resources.sirin.economyBuff}}</p>
-                            <p>{{tabCtrl.indivStudy}}</p>
-                        </div>
-                        <div class="col-md-4 col-lg-3">
-                        	<img src="images/sirinpic.jpg" class="picright" />
-                            <div ng-include="'includes/sirin-chart.html'"></div>
-                        </div>
+                        <div ng-include="'includes/sirin-chart.html'"></div>
                         <div class="clearboth"></div>
                     </div><!-- end sirintab -->
                     
                     <div id="touriktab" class="tabcontent panel" ng-show="tabCtrl.isSelected(6)">
-                        <div class="col-md-8 col-lg-9">
-                            <h2>Tourik: Observational Astronomy</h2>
-                            <p>Employs a powerful telescope to record observational data about distant spacial bodies.</p>
-                            <p>Old enough to be a grandfather of the group, Tourik keeps to himself and subsequently not much is known about his actual work.</p>
-                            <p>Happiness: {{gameCtrl.resources.tourik.happinessBuff}}<br />
-                            Productivity: {{gameCtrl.resources.tourik.productivityBuff}}<br />
-                            Economy: {{gameCtrl.resources.tourik.economyBuff}}</p>
-                            <p>{{tabCtrl.indivStudy}}</p>
-                        </div>
-                        <div class="col-md-4 col-lg-3">
-                        	<img src="images/tourikpic.jpg" class="picright" />
-                            <div ng-include="'includes/tourik-chart.html'"></div>
-                        </div>
+                        <div ng-include="'includes/tourik-chart.html'"></div>
                         <div class="clearboth"></div>
                     </div><!-- end touriktab -->
                 </div><!-- end infowindow -->
@@ -198,31 +135,52 @@
             <div id="rightui" ng-controller="RtTabController as rttabCtrl">
                 <div id="righttablabels">
                     <ul>
-                        <li class="upgrades"><a ng-click="rttabCtrl.selectTab(1)" ng-class="{active:rttabCtrl.isSelected(1)}">Upgrades</a></li>
-                        <li><a ng-click="rttabCtrl.selectTab(2)" ng-class="{active:rttabCtrl.isSelected(2)}">Collaborations</a></li>
-                        <li><a ng-click="rttabCtrl.selectTab(3)" ng-class="{active:rttabCtrl.isSelected(3)}">RAs</a></li>
-                        <li class="last"><a ng-click="rttabCtrl.selectTab(4)" ng-class="{active:rttabCtrl.isSelected(4)}">Achievements</a></li>
+                        <li class="upgrades"><a ng-click="rttabCtrl.selectTab(1)" ng-class="{active:rttabCtrl.isSelected(1)}">Breakthroughs</a></li>
+                        <li><a ng-click="rttabCtrl.selectTab(2)" ng-class="{active:rttabCtrl.isSelected(2)}">Events</a></li>
+                        <li class="last"><a ng-click="rttabCtrl.selectTab(3)" ng-class="{active:rttabCtrl.isSelected(3)}">Achievements</a></li>
                     </ul>
                 </div><!-- end lowertablabels -->
                 
                 <div id="rtinfowindow">
-                    <div id="upgradetab" class="tabcontent panel" ng-show="rttabCtrl.isSelected(1)">
+                    <div id="bttab" class="tabcontent panel" ng-show="rttabCtrl.isSelected(1)">
                         <h2>Upgrades</h2>
-                        <button ng-show="gameCtrl.programminglvl2" ng-click="gameCtrl.upgradeResource('programs',2)">Attend programming conference</button>
+                        <p><button ng-show="gameCtrl.saved.programsLvl1Event.visible" ng-click="gameCtrl.programsLvl1Activate()" ng-mouseenter="gameCtrl.hoverDesc('programsLvl1Event','visible')" ng-mouseleave="gameCtrl.hoverDesc('programsLvl1Event','hidden')">{{gameCtrl.saved.programsLvl1Event.name}}</button></p>
+                        <p ng-show="gameCtrl.programsLvl1Eventmaindesc">&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right"></i> {{gameCtrl.saved.programsLvl1Event.desc}} Cost: {{gameCtrl.saved.programsLvl1Event.cost}} {{gameCtrl.saved.programsLvl1Event.costName}}</p>
+                        <p><button data-toggle="modal" data-target="#indivstudy" data-backdrop="static" data-keyboard="false" ng-show="gameCtrl.saved.indivStudyEvent.visible" ng-mouseenter="gameCtrl.hoverDesc('indivStudyEvent','visible')" ng-mouseleave="gameCtrl.hoverDesc('indivStudyEvent','hidden')">{{gameCtrl.saved.indivStudyEvent.name}}</button></p>
+                        <p ng-show="gameCtrl.indivStudyEventmaindesc">&nbsp;&nbsp;&nbsp;<i class="fa fa-caret-right"></i> {{gameCtrl.saved.indivStudyEvent.desc}} Requirement: {{gameCtrl.saved.indivStudyEvent.cost}} {{gameCtrl.saved.indivStudyEvent.costName}}</p>
+                        <h2>Collaborations</h2>
+                        <h2>Research Assistants</h2>
                     </div><!-- end upgradetab -->
                     
-                    <div id="collabtab" class="tabcontent panel" ng-show="rttabCtrl.isSelected(2)">
-                        <h2>Collaborations</h2>
+                    <div id="eventtab" class="tabcontent panel" ng-show="rttabCtrl.isSelected(2)">
+                        <h2>Events</h2>
+                        <h2>Free Time</h2>
+                        <h2>Awards</h2>
                     </div><!-- end collabtab -->
                     
-                    <div id="ratab" class="tabcontent panel" ng-show="rttabCtrl.isSelected(3)">
-                        <h2>Research Assistants</h2>
-                    </div><!-- end ratab -->
-                    
-                    <div id="achievetab" class="tabcontent panel" ng-show="rttabCtrl.isSelected(4)">
+                    <div id="achievetab" class="tabcontent panel" ng-show="rttabCtrl.isSelected(3)">
                         <h2>Achievements</h2>
+                        <div class="col-xs-7 col-md-6 col-lg-7">
+                            <p><i class="fa fa-trophy fa-2x" ng-mouseenter="gameCtrl.setAchieveDesc('Achievement 1')" ng-mouseleave="gameCtrl.setAchieveDesc('')"></i>
+                            <i class="fa fa-trophy fa-2x" ng-mouseenter="gameCtrl.setAchieveDesc('Achievement 2')" ng-mouseleave="gameCtrl.setAchieveDesc('')"></i>
+                            <i class="fa fa-trophy fa-2x" ng-mouseenter="gameCtrl.setAchieveDesc('Achievement 3')" ng-mouseleave="gameCtrl.setAchieveDesc('')"></i>
+                            <i class="fa fa-trophy fa-2x" ng-mouseenter="gameCtrl.setAchieveDesc('Achievement 4')" ng-mouseleave="gameCtrl.setAchieveDesc('')"></i>
+                            <i class="fa fa-trophy fa-2x" ng-mouseenter="gameCtrl.setAchieveDesc('Achievement 5')" ng-mouseleave="gameCtrl.setAchieveDesc('')"></i>
+                            <i class="fa fa-trophy fa-2x" ng-mouseenter="gameCtrl.setAchieveDesc('Achievement 6')" ng-mouseleave="gameCtrl.setAchieveDesc('')"></i>
+                            <i class="fa fa-trophy fa-2x" ng-mouseenter="gameCtrl.setAchieveDesc('Achievement 7')" ng-mouseleave="gameCtrl.setAchieveDesc('')"></i>
+                            <i class="fa fa-trophy fa-2x" ng-mouseenter="gameCtrl.setAchieveDesc('Achievement 8')" ng-mouseleave="gameCtrl.setAchieveDesc('')"></i>
+                            <i class="fa fa-trophy fa-2x" ng-mouseenter="gameCtrl.setAchieveDesc('Achievement 9')" ng-mouseleave="gameCtrl.setAchieveDesc('')"></i>
+                            <i class="fa fa-trophy fa-2x" ng-mouseenter="gameCtrl.setAchieveDesc('Achievement 10')" ng-mouseleave="gameCtrl.setAchieveDesc('')"></i></p>
+                        </div>
+                        <div class="col-xs-5 col-md-6 col-lg-5" id="achievedesc">
+                        	<p>&nbsp;{{gameCtrl.achieveDesc}}</p>
+                        </div>
+                        <div class="clearboth"></div>
                     </div><!-- end achievetab -->
-                </div><!-- end lowerui -->
+                </div><!-- end rtinfowindow -->
+                
+                <!-- Indiv Study Modal -->
+         	<div ng-include="'includes/study-modal.html'"></div>
             </div>
         </div>
     </div>
